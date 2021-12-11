@@ -73,17 +73,24 @@ class Calculator {
       return;
     }
     this.#calculatorExp += this.#currentNumber;
-    this.#currentNumber = "";
     this.#previousOperand = this.#calculatorExp;
     this.#calculatorExp = this._replaceOperator(this.#calculatorExp);
-    this.#calculatorExp =
-      eval(this.#calculatorExp) % 1 == 0
-        ? eval(this.#calculatorExp)
-        : eval(this.#calculatorExp).toFixed(2);
+
+    try {
+      this.#calculatorExp =
+        eval(this.#calculatorExp) % 1 == 0
+          ? eval(this.#calculatorExp)
+          : eval(this.#calculatorExp).toFixed(2);
+    } catch (error) {
+      alert("Invalid Expression");
+    }
     this.currentOperandElement.innerText = new Intl.NumberFormat(
       "en-US"
     ).format(this.#calculatorExp);
     this.previousOperandElement.innerText = this.#previousOperand;
+
+    this.#currentNumber = this.#calculatorExp;
+    this.#calculatorExp = "";
   }
 
   _replaceOperator(expression) {
@@ -120,6 +127,7 @@ class Calculator {
   appendParenthesis(e) {
     const char = e.target.innerText.trim();
     if (this.#currentNumber && char == "(") return;
+    this.#operator = undefined;
     if (char === "(") {
       this.#calculatorExp += char;
       this.currentOperandElement.innerText += char;
