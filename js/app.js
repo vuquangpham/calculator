@@ -46,7 +46,7 @@ class Calculator {
       this.currentOperandElement.innerText = this.#calculatorExp;
       return;
     }
-    this.#calculatorExp = this.#calculatorExp.slice(0, -3);
+    this.#calculatorExp = this.#calculatorExp.slice(0, -1);
     this.currentOperandElement.innerText = this.#calculatorExp;
     this.#operator = undefined;
   }
