@@ -83,6 +83,12 @@ class Calculator {
           : eval(this.#calculatorExp).toFixed(2);
     } catch (error) {
       alert("Invalid Expression");
+      return;
+    }
+    if (!Number.isFinite(this.#calculatorExp)) {
+      alert("Inifinite value");
+      alert("Please type again!");
+      return;
     }
     this.currentOperandElement.innerText = new Intl.NumberFormat(
       "en-US"
